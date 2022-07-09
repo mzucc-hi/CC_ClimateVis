@@ -83,6 +83,6 @@ t_data %>%
 
 # Save plot
 
-ggsave("Figures/temperature_bar_plot.jpg", width = 18, height = 12, units = "cm")
+ggsave("Figures/temperature_bar_plot.jpg", width = 20, height = 14, units = "cm")
 
 

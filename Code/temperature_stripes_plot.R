@@ -58,7 +58,6 @@ t_data %>%
       axis.text.x = element_text(colour = "white", margin = margin(t = 5, b = 10, unit = "pt")),
       plot.background = element_rect(fill = "black"),
       plot.title = element_text(colour = "white", margin = margin(b = 5, t = 10, unit = "pt"),
-                                hjust = 0.05,
                                 size = 13,
                                 face = "bold"),
       plot.caption = element_text(colour = "white")
@@ -67,7 +66,7 @@ t_data %>%
 
 # Save
 
-ggsave("Figures/warming_stripest.jpg", width = 10, height = 6, units = "cm")
+ggsave("Figures/warming_stripest.jpg", width = 20, height = 10, units = "cm")
 
 
 
