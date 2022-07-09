@@ -64,7 +64,7 @@ read_csv("Data/GLB.Ts+dSST.csv", skip = 1, na = "***") %>%
     )
 
 
-ggsave("Figures/temperature_index_plot.png", width = 5, height = 4)
+ggsave("Figures/temperature_index_plot.jpg", width = 14, height = 10, units = "cm")
 
 
 
