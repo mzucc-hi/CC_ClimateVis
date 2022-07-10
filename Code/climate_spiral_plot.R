@@ -34,8 +34,7 @@ t_diff <- read_csv("Data/GLB.Ts+dSST.csv", skip = 1, na = "***") %>%
   mutate(month = factor(month, levels = month.abb)) # organise months so that they are in date (not alph) order
 
 
-# What we also want is to have lines that show us Dec values before the Jan ones and Jan ones after the Dec ones, 
-# so that the plot doesn't abruptly end but rather has a continuous line
+# What we also want is to have lines that match December values with the next year's Jan value (cont. line)
 
 next_Jan <- t_diff %>%
   filter(month == "Jan") %>%
@@ -50,7 +49,7 @@ t_data <- bind_rows(t_diff, next_Jan) %>%
   mutate(month = factor(month, levels = c(month.abb, "next_Jan")),
          month_number = as.numeric(month)) # Re-order to make sense
  
-## Adding lines to show temperature limits to the plot
+## Adding lines to show temperature thresholds to the plot
 temp_lines <- tibble(
   x = 12,
   y = c(1.5, 2.0),
@@ -64,12 +63,6 @@ month_labels <- tibble(
   label = month.abb,
   y = 2.7
 )
-
-## Annotation
-annotation <- t_data %>%
-  drop_na() %>%
-  filter(Year == 2022) %>%
-  slice_max(month)
 
 
 ## Diagram 
@@ -88,19 +81,14 @@ t_data %>%
              colour = "black",
              inherit.aes = F,
              width = 1) + # Get black background like in original figure, covering middle of plot
-    geom_hline(yintercept = c(1.5, 2.0), colour = "white") + # Creation of 1.5 and 2C lines
+    geom_hline(yintercept = c(1.5, 2.0), colour = "white") + # Creation of 1.5 and 2C threshold lines
     geom_line(size = 0.4, alpha = 0.8) +
-    # geom_point(data = annotation,
-    #            aes(x = month_number, y = t_diff, colour = Year),
-    #            inherit.aes = F,
-    #            size = 2,
-    #           colour = "red") +
     geom_label(data = temp_lines,
                aes(x = x, y = y, label = label),
                inherit.aes = F,
                colour = "white",
                fill = "black",
-               label.size = 0) +
+               label.size = 0) + # Labelling threshold lines
     geom_text(data = month_labels,
               aes(x = x, y = y, label = label),
               inherit.aes = F,
